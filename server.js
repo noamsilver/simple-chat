@@ -21,7 +21,6 @@ app.get('/messages', (req, res) => {
   res.send(JSON.stringify(chatData))
 })
 app.post('/new-message', (req, res) => {
-  console.log('in /new-message', {post: req.body});
   const message = addNewMessage(decodeURIComponent(req.body.name), decodeURIComponent(req.body.message));
   io.emit('message', message);
   res.sendStatus(200);

@@ -56,7 +56,7 @@ async function init() {
 
 function initSocket() {
   const socket = io();
-  console.log('initializing the socket.', { socket })
+  console.log('initializing the socket.')
   socket.on('message', (message) => addMessageToList(message))
 }
 
