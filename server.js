@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 
 const chatData = [];
+const chatStat = new Map();
 
 io.on('connection', (socket) => {
   console.log('a user connected')
@@ -18,7 +19,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json())
 
 app.get('/messages', (req, res) => {
-  res.send(JSON.stringify(chatData))
+  const data = {
+    chatData,
+    chatStat: Array.from(chatStat),
+  }
+  res.send(JSON.stringify(data))
 })
 app.post('/new-message', (req, res) => {
   const message = addNewMessage(decodeURIComponent(req.body.name), decodeURIComponent(req.body.message));
@@ -35,6 +40,13 @@ const addNewMessage = (name, message) => {
     time: new Date().valueOf(),
     text: message,
   };
-  chatData.push(newMessage);
+  chatData.unshift(newMessage);
+  message.match(/([^\s]+)/gm).forEach(word => {
+    if (chatStat.has(word)) {
+      chatStat.set(word, chatStat.get(word) + 1);
+    } else {
+      chatStat.set(word, 1);
+    };
+  });
   return newMessage;
 }

@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel='stylesheet' href='style.css'>
     <title>Zero Energy Chat</title>
   </head>
   <body>
     <div id='main-content'>
       <h1>Chat</h1>
-      <div>
+      <div id='chat-input'>
         <div>
           <label>Name</label>
           <input id='new-name' type='text' name='name'>
@@ -17,9 +18,25 @@
         </div>
         <input type='button' value='Post' onclick='submit()'>
       </div>
-      <div id='chat-messages'>
-        <div id='empty-chat'>
-          There is no chat history.
+      <div id='chat'>
+        <div id='chat-messages'>
+            <h2 id='chat-messages-h2'>Chat</h2>
+          <div id='empty-chat'>
+            There is no chat history.
+          </div>
+        </div>
+        <div id='chat-stat'>
+          <h2>Chat Statistics</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Word</th>
+                <th>Count</th>
+              </tr>
+            </thead>
+            <tbody id='table-body'>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
